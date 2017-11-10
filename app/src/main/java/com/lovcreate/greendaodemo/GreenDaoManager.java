@@ -1,5 +1,9 @@
 package com.lovcreate.greendaodemo;
 
+import com.lovcreate.greendaodemo.app.MyApplication;
+import com.lovcreate.greendaodemo.gen.DaoMaster;
+import com.lovcreate.greendaodemo.gen.DaoSession;
+
 /**
  * Created by wanghaoyu on 2017/11/6.
  */

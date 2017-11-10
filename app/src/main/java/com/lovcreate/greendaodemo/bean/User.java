@@ -11,12 +11,12 @@ import org.greenrobot.greendao.annotation.Generated;
 public class User {
 
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
     private String name;
     private String sex;
     private String phone;
-    @Generated(hash = 1268776974)
-    public User(long id, String name, String sex, String phone) {
+    @Generated(hash = 1906082722)
+    public User(Long id, String name, String sex, String phone) {
         this.id = id;
         this.name = name;
         this.sex = sex;
@@ -25,10 +25,10 @@ public class User {
     @Generated(hash = 586692638)
     public User() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getName() {

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.classic.common.MultipleStatusView;
 import com.lovcreate.greendaodemo.adapter.SchoolListAdapter;
 import com.lovcreate.greendaodemo.bean.School;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -33,6 +34,8 @@ public class SchoolListActivity extends AppCompatActivity {
     ListView recycle;
     @Bind(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @Bind(R.id.status_view)
+    MultipleStatusView statusView;
 
     private SchoolListAdapter adapter;
     private List<School> list = new ArrayList<>();
@@ -54,9 +57,9 @@ public class SchoolListActivity extends AppCompatActivity {
         int i = 100;
         for (int a = 0; a < i; a++) {
             School school = new School();
-            school.setId(a+1);
-            school.setName("长春第" + (a+1) + "高等中学");
-            school.setAddress("长春" + (a+1) + "马路，10" + (a+1) + "号");
+            school.setId(a + 1);
+            school.setName("长春第" + (a + 1) + "高等中学");
+            school.setAddress("长春" + (a + 1) + "马路，10" + (a + 1) + "号");
             school.setTel("0431-886991" + a);
             list.add(school);
         }
@@ -64,10 +67,17 @@ public class SchoolListActivity extends AppCompatActivity {
 
         queryBuilder = GreenDaoManager.getInstance().getmDaoSession().getSchoolDao().queryBuilder();
 
+        statusView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusView.showContent();
+                refreshLayout.autoRefresh();
+            }
+        });
     }
 
     private void showData() {
-        List<School> schools = queryBuilder.limit(pageSize).offset( (pageNo-1) * pageSize).build().list();
+        List<School> schools = queryBuilder.limit(pageSize).offset((pageNo - 1) * pageSize).build().list();
         schoolList.addAll(schools);
         adapter.notifyDataSetHasChanged();
     }
@@ -97,7 +107,8 @@ public class SchoolListActivity extends AppCompatActivity {
                 refreshLayout.post(new Runnable() {
                     @Override
                     public void run() {
-                        showData();
+                        statusView.showEmpty();
+//                        showData();
                         refreshlayout.finishLoadmore(1000);
                     }
                 });

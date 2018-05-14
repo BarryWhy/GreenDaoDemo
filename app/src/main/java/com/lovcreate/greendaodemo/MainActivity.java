@@ -1,9 +1,13 @@
 package com.lovcreate.greendaodemo;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initData();
+        Log.e("SIGN", "signature= " + getSignature("com.lovcreate.greendaodemo") + "");
     }
 
     private void initData() {
@@ -107,5 +112,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SchoolListActivity.class));
                 break;
         }
+    }
+
+    private int getSignature(String packageName) {
+        PackageManager pm = this.getPackageManager();
+        PackageInfo pi = null;
+        int sign = 0;
+        try {
+            pi = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            Signature[] s = pi.signatures;
+            sign = s[0].hashCode();
+        } catch (PackageManager.NameNotFoundException e) {
+            sign = -1;
+            e.printStackTrace();
+        }
+        return sign;
     }
 }

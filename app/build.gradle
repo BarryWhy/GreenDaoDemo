@@ -17,6 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+        release {
+            keyAlias 'key'
+            keyPassword 'aiwai666'
+            storeFile file('../greendaodemo.jks')
+            storePassword 'aiwai666'
+        }
+    }
     greendao {
         schemaVersion 1
         daoPackage 'com.lovcreate.greendaodemo.gen'
@@ -37,4 +45,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.byteam.superadapter:superadapter:3.6.7'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.classic.common:multiple-status-view:1.4'
 }
